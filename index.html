@@ -275,6 +275,117 @@
   [tabindex="-1"]:focus-visible { outline:3px solid var(--focus); outline-offset:4px; }
   .view[hidden] { display:none !important; }
   @media (prefers-reduced-motion: reduce){ * { transition:none !important; } }
+
+  /* ── HAMBURGER NAVIGATION ── */
+  .nav-toggle {
+    display: none;
+    background: none; border: none; cursor: pointer;
+    padding: 0.4rem; color: var(--head);
+    flex-shrink: 0;
+  }
+  .nav-toggle svg { display:block; width:26px; height:26px; }
+  .nav-close {
+    display: none;
+    position: absolute; top: 1.1rem; right: 1.1rem;
+    background: none; border: none; cursor: pointer;
+    padding: 0.4rem; color: var(--head);
+  }
+  .nav-close svg { display:block; width:26px; height:26px; }
+
+  @media (max-width:700px){
+    .site-header .inner { flex-wrap: nowrap; }
+    .nav-toggle { display: flex; align-items: center; }
+    .mainnav {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      z-index: 999;
+    }
+    .mainnav.is-open { display: flex; }
+    .mainnav a { font-size: 1.25rem; font-weight: 500; }
+    .nav-close { display: block; }
+  }
+
+  /* ── GLOBAL MOBILE PADDING ── */
+  @media (max-width:639px){
+    .inner { padding-block: 2.5rem; }
+    .band.hero > .inner { padding-block: 1.8rem; }
+  }
+  @media (max-width:425px){
+    .inner {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+  }
+
+  /* ── HERO SECTION MOBILE ── */
+  @media (max-width:939px){
+    .hero-photo-wrap { margin-top: 1rem; }
+    .hero-photo-wrap img { max-width: 100%; }
+  }
+  @media (max-width:560px){
+    .hero-photo-wrap img { max-width: 100%; }
+    .hero-copy { gap: 1rem; }
+    .cta-row { flex-direction: column; align-items: flex-start; }
+    .cta-row .btn { width: 100%; text-align: center; }
+  }
+
+  /* ── SPLIT SECTION IMAGE MARGINS ── */
+  /* Remove inline margin-left on shot figures on mobile */
+  @media (max-width:939px){
+    .split figure { margin-left: 0 !important; max-width: 100%; }
+    .shot-wide { max-width: 100%; }
+    .shot-step { max-width: 100%; }
+    .shot-sq   { max-width: 100%; }
+  }
+
+  /* ── CARDS ── */
+  @media (max-width:620px){
+    .cards { grid-template-columns: 1fr; }
+  }
+
+  /* ── STATS ── */
+  @media (max-width:480px){
+    .stats { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* ── STEPS ── */
+  @media (max-width:560px){
+    .steps { grid-template-columns: 1fr; }
+  }
+
+  /* ── QA / POLICY / TWOUP ── */
+  @media (max-width:639px){
+    .qa    { grid-template-columns: 1fr; }
+    .policy{ grid-template-columns: 1fr; }
+    .twoup { grid-template-columns: 1fr; }
+  }
+
+  /* ── FORM ── */
+  @media (max-width:560px){
+    .row2 { grid-template-columns: 1fr; }
+    .form-wrap { grid-template-columns: 1fr; }
+  }
+
+  /* ── TYPOGRAPHY SCALE DOWN ── */
+  @media (max-width:425px){
+    body { font-size: 16px; }
+    h3   { font-size: 1.05rem; }
+  }
+
+  /* ── SPLIT LAYOUT: stack image below text on mobile ── */
+  @media (max-width:939px){
+    .split { grid-template-columns: 1fr; }
+  }
+
+  /* ── PREVENT HORIZONTAL OVERFLOW ── */
+  html, body { overflow-x: hidden; }
+  img { max-width: 100%; height: auto; }
 </style>
 <style>:root{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
@@ -282,7 +393,19 @@
 <header class="site-header">
   <div class="inner">
     <a class="brand" href="#home" aria-label="Dementia Diagnostics, home"><svg class="logo" viewBox="0 0 428.89 129.82" role="img" aria-label="Dementia Diagnostics" xmlns="http://www.w3.org/2000/svg"><g fill="currentColor" fill-rule="nonzero"><path d="M 162.73 21.64 L 175.82 21.64 C 188.23 21.64 194.86 28.21 194.86 40.73 C 194.86 53.03 188 59.6 175.25 59.6 L 162.73 59.6 Z M 188.97 40.85 L 188.97 40.5 C 188.97 30.96 184.8 26.61 175.82 26.61 L 168.39 26.61 L 168.39 54.62 L 175.48 54.62 C 184.51 54.62 188.97 50.11 188.97 40.85"/><path d="M 197.55 46.28 C 197.55 37.93 203.1 32.16 210.76 32.16 C 218.71 32.16 223.45 37.47 223.45 45.94 L 223.45 48 L 203.1 48 C 203.44 52.62 206.36 55.54 210.99 55.54 C 215.56 55.54 217.62 53.31 218.65 50.68 L 223.57 52.57 C 221.79 56.63 217.91 60.06 210.99 60.06 C 202.7 60.06 197.55 54.57 197.55 46.28 M 210.64 36.68 C 206.53 36.68 203.55 39.42 202.98 43.82 L 217.73 43.82 C 217.5 39.13 214.93 36.68 210.64 36.68"/><path d="M 227.57 32.61 L 233.12 32.61 L 233.12 37.36 C 234.49 34.04 237.12 32.04 241 32.04 C 244.21 32.04 247.18 33.7 248.44 37.99 C 249.75 34.45 252.61 32.04 257.18 32.04 C 262.33 32.04 265.59 35.99 265.59 42.68 L 265.59 59.6 L 260.04 59.6 L 260.04 42.91 C 260.04 38.9 258.27 36.96 255.07 36.96 C 251.41 36.96 249.35 39.76 249.35 44.56 L 249.35 59.6 L 243.8 59.6 L 243.8 42.96 C 243.8 38.9 242.04 36.96 238.83 36.96 C 235.57 36.96 233.12 39.59 233.12 44.51 L 233.12 59.6 L 227.57 59.6 Z M 227.57 32.61"/><path d="M 269.2 46.28 C 269.2 37.93 274.74 32.16 282.4 32.16 C 290.35 32.16 295.09 37.47 295.09 45.94 L 295.09 48 L 274.74 48 C 275.08 52.62 278 55.54 282.63 55.54 C 287.2 55.54 289.26 53.31 290.29 50.68 L 295.21 52.57 C 293.44 56.63 289.55 60.06 282.63 60.06 C 274.34 60.06 269.2 54.57 269.2 46.28 M 282.29 36.68 C 278.17 36.68 275.2 39.42 274.62 43.82 L 289.38 43.82 C 289.15 39.13 286.57 36.68 282.29 36.68"/><path d="M 299.21 32.61 L 304.76 32.61 L 304.76 37.76 C 306.19 34.1 308.99 32.04 313.05 32.04 C 318.88 32.04 322.43 35.99 322.43 43.14 L 322.43 59.6 L 316.88 59.6 L 316.88 43.48 C 316.88 39.19 315.05 36.96 311.39 36.96 C 307.16 36.96 304.76 40.45 304.76 46.74 L 304.76 59.6 L 299.21 59.6 Z M 299.21 32.61"/><path d="M 329 52.86 L 329 37.36 L 324.66 37.36 L 324.66 32.62 L 329 32.62 L 329 27.3 L 334.32 23.98 L 334.32 32.62 L 340.21 32.62 L 340.21 37.36 L 334.32 37.36 L 334.32 52.23 C 334.32 53.94 335 54.74 336.78 54.74 L 339.98 54.74 L 339.98 59.6 L 335.18 59.6 C 330.32 59.6 329 57.14 329 52.86"/><path d="M 346.78 22.32 L 352.73 22.32 L 352.73 28.27 L 346.78 28.27 Z M 346.89 32.62 L 352.5 32.62 L 352.5 59.6 L 346.89 59.6 Z M 346.89 32.62"/><path d="M 356.62 52.51 C 356.62 46.45 361.13 45.08 367.14 43.76 C 371.77 42.79 374.62 42.51 375.14 40.91 L 375.14 40.56 C 375.14 38.33 373.48 36.62 369.31 36.62 C 365.31 36.62 362.85 38.45 362.85 41.54 L 362.85 41.82 L 357.25 41.82 C 357.42 35.82 362.22 32.16 369.37 32.16 C 376.29 32.16 380.4 35.25 380.4 42.05 L 380.4 59.6 L 375.08 59.6 L 375.08 55.54 C 373.2 58.74 369.82 60.29 365.99 60.29 C 360.16 60.29 356.62 57.09 356.62 52.51 M 375.14 48.74 L 375.14 45.37 C 373.48 46.51 370.57 46.96 367.94 47.59 C 364.85 48.39 362.28 49.37 362.28 52.28 C 362.28 54.51 363.93 56.05 366.91 56.05 C 370.91 56.05 374.68 54 375.14 48.74"/><path d="M 162.73 70.27 L 175.82 70.27 C 188.23 70.27 194.86 76.84 194.86 89.36 C 194.86 101.66 188 108.23 175.25 108.23 L 162.73 108.23 Z M 188.97 89.48 L 188.97 89.14 C 188.97 79.59 184.8 75.24 175.82 75.24 L 168.39 75.24 L 168.39 103.26 L 175.48 103.26 C 184.51 103.26 188.97 98.74 188.97 89.48"/><path d="M 198.98 70.95 L 204.93 70.95 L 204.93 76.9 L 198.98 76.9 Z M 199.09 81.25 L 204.7 81.25 L 204.7 108.23 L 199.09 108.23 Z M 199.09 81.25"/><path d="M 208.82 101.14 C 208.82 95.08 213.33 93.71 219.34 92.39 C 223.97 91.42 226.82 91.14 227.34 89.54 L 227.34 89.19 C 227.34 86.96 225.68 85.25 221.51 85.25 C 217.51 85.25 215.05 87.08 215.05 90.16 L 215.05 90.45 L 209.45 90.45 C 209.62 84.45 214.42 80.79 221.57 80.79 C 228.48 80.79 232.6 83.88 232.6 90.68 L 232.6 108.23 L 227.28 108.23 L 227.28 104.17 C 225.39 107.38 222.02 108.92 218.19 108.92 C 212.36 108.92 208.82 105.71 208.82 101.14 M 227.34 97.37 L 227.34 94 C 225.68 95.14 222.77 95.59 220.14 96.22 C 217.05 97.02 214.48 98 214.48 100.91 C 214.48 103.14 216.13 104.69 219.11 104.69 C 223.11 104.69 226.88 102.63 227.34 97.37"/><path d="M 235.98 113.95 C 235.98 111.32 237.92 109.14 241 108 C 238.2 107.26 236.43 105.48 236.43 103.26 C 236.43 100.91 238.2 99.2 241.35 98.45 C 238.95 96.62 237.46 94 237.46 90.85 C 237.46 85.02 242.32 80.67 248.84 80.67 C 254.84 80.67 259.93 84.68 259.93 90.79 C 259.93 96.85 255.41 100.86 248.55 100.86 C 246.72 100.86 244.89 100.51 243.35 99.71 L 247.58 100.34 L 244.55 100.34 C 242.44 100.23 241.29 101.09 241.29 102.29 C 241.29 103.6 243.01 104.46 245.52 104.46 L 251.12 104.46 C 259.7 104.46 263.99 107.26 263.99 112.8 C 263.99 118.35 258.56 121.72 249.58 121.72 C 240.72 121.72 235.98 118.98 235.98 113.95 M 259.07 113.15 C 259.07 110.46 256.61 109.26 250.95 109.26 L 247.01 109.26 C 243.52 109.43 240.84 110.98 240.84 113.49 C 240.84 116.01 243.98 117.49 249.75 117.49 C 255.47 117.49 259.07 115.84 259.07 113.15 M 254.9 90.91 L 254.9 90.62 C 254.9 87.3 252.33 84.9 248.73 84.9 C 245.18 84.9 242.66 87.3 242.66 90.68 L 242.66 90.91 C 242.66 94.22 245.07 96.51 248.73 96.51 C 252.55 96.51 254.9 94.28 254.9 90.91 M 263.88 81.25 L 263.88 87.02 C 262.1 86.39 260.21 86.68 258.96 88.73 L 257.93 86.05 C 258.84 83.19 260.67 81.25 263.88 81.25"/><path d="M 266.96 81.25 L 272.51 81.25 L 272.51 86.39 C 273.94 82.73 276.74 80.67 280.8 80.67 C 286.63 80.67 290.18 84.62 290.18 91.77 L 290.18 108.23 L 284.63 108.23 L 284.63 92.11 C 284.63 87.82 282.8 85.59 279.14 85.59 C 274.91 85.59 272.51 89.08 272.51 95.37 L 272.51 108.23 L 266.96 108.23 Z M 266.96 81.25"/><path d="M 293.78 94.8 C 293.78 86.56 299.38 80.79 307.33 80.79 C 315.22 80.79 320.82 86.56 320.82 94.8 C 320.82 102.91 315.11 108.69 307.21 108.69 C 299.33 108.69 293.78 103.03 293.78 94.8 M 315.16 94.96 L 315.16 94.74 C 315.16 89.08 312.19 85.48 307.33 85.48 C 302.47 85.48 299.38 89.08 299.38 94.74 L 299.38 94.96 C 299.38 100.51 302.36 103.94 307.21 103.94 C 312.13 103.94 315.16 100.51 315.16 94.96"/><path d="M 323.05 103.31 L 327.86 100.8 C 329.52 103.2 332.32 104.4 335.18 104.4 C 338.26 104.4 340.09 103.03 340.09 100.74 C 340.09 98.34 336.83 97.82 332.66 96.91 C 327.68 95.88 323.34 94.22 323.34 89.02 C 323.34 84.27 327.86 80.67 333.52 80.67 C 338.61 80.67 342.55 82.96 345.18 86.45 L 340.32 88.79 C 338.84 86.5 336.38 85.19 333.52 85.19 C 330.6 85.19 328.71 86.56 328.71 88.62 C 328.71 90.91 330.49 91.31 335.41 92.28 C 340.38 93.25 345.46 95.02 345.46 100.34 C 345.46 105.32 341.06 108.97 334.95 108.97 C 329.69 108.97 325.51 106.8 323.05 103.31"/><path d="M 351.41 101.48 L 351.41 85.99 L 347.07 85.99 L 347.07 81.25 L 351.41 81.25 L 351.41 75.93 L 356.73 72.61 L 356.73 81.25 L 362.62 81.25 L 362.62 85.99 L 356.73 85.99 L 356.73 100.86 C 356.73 102.57 357.42 103.37 359.19 103.37 L 362.39 103.37 L 362.39 108.23 L 357.59 108.23 C 352.73 108.23 351.41 105.77 351.41 101.48"/><path d="M 369.2 70.95 L 375.14 70.95 L 375.14 76.9 L 369.2 76.9 Z M 369.31 81.25 L 374.91 81.25 L 374.91 108.23 L 369.31 108.23 Z M 369.31 81.25"/><path d="M 378.8 94.68 C 378.8 86.62 384.29 80.79 392.18 80.79 C 398.47 80.79 402.53 84.22 404.19 89.42 L 398.87 91.14 C 397.95 87.59 395.95 85.48 392.07 85.48 C 387.32 85.48 384.41 89.19 384.41 94.62 L 384.41 94.85 C 384.41 100.17 387.15 104 391.89 104 C 396.3 104 398.18 101.77 399.16 98.05 L 404.41 99.71 C 402.59 105.14 398.53 108.69 392.01 108.69 C 383.95 108.69 378.8 102.91 378.8 94.68"/><path d="M 406.48 103.31 L 411.28 100.8 C 412.93 103.2 415.74 104.4 418.6 104.4 C 421.68 104.4 423.51 103.03 423.51 100.74 C 423.51 98.34 420.25 97.82 416.08 96.91 C 411.11 95.88 406.76 94.22 406.76 89.02 C 406.76 84.27 411.28 80.67 416.94 80.67 C 422.03 80.67 425.97 82.96 428.6 86.45 L 423.74 88.79 C 422.25 86.5 419.8 85.19 416.94 85.19 C 414.02 85.19 412.14 86.56 412.14 88.62 C 412.14 90.91 413.91 91.31 418.82 92.28 C 423.8 93.25 428.89 95.02 428.89 100.34 C 428.89 105.32 424.48 108.97 418.37 108.97 C 413.11 108.97 408.93 106.8 406.48 103.31"/><path d="M 13.45 92.74 L 6.74 78.83 C 6.05 79.16 5.33 79.44 4.59 79.67 L 9.15 94.43 C 10.63 93.98 12.07 93.41 13.45 92.74"/><path d="M 4.88 96.36 L 7.26 112.08 C 9.64 111.72 11.96 111.19 14.21 110.49 L 9.52 95.3 C 8.02 95.76 6.47 96.12 4.88 96.36"/><path d="M 13.94 93.56 L 20.84 107.88 C 22.99 106.84 25.05 105.65 27 104.31 L 18.05 91.18 C 16.74 92.07 15.37 92.87 13.94 93.56"/><path d="M 26.78 80.35 L 13.4 72.63 C 13.02 73.3 12.58 73.93 12.11 74.53 L 24.18 84.16 C 25.14 82.96 26.01 81.69 26.78 80.35"/><path d="M 21.04 87.55 L 10.54 76.23 C 9.97 76.75 9.37 77.23 8.73 77.67 L 17.44 90.43 C 18.71 89.56 19.91 88.59 21.04 87.55"/><path d="M 48.69 64.91 C 48.69 66.13 48.64 67.34 48.55 68.54 L 64.73 69.75 C 64.85 68.15 64.91 66.54 64.91 64.91 C 64.91 63.27 64.85 61.65 64.73 60.05 L 48.55 61.26 C 48.64 62.46 48.69 63.68 48.69 64.91"/><path d="M 47.48 54.07 L 63.29 50.45 C 62.57 47.27 61.61 44.17 60.44 41.18 L 45.34 47.11 C 46.21 49.36 46.93 51.68 47.48 54.07"/><path d="M 31.82 67.28 C 31.71 68.88 31.47 70.45 31.12 71.98 L 46.62 75.51 C 47.14 73.22 47.5 70.87 47.67 68.46 Z M 31.82 67.28"/><path d="M 30.14 71.78 L 15.08 68.34 C 14.91 69.1 14.68 69.84 14.4 70.55 L 28.79 76.19 C 29.34 74.77 29.8 73.29 30.14 71.78"/><path d="M 21.76 88.21 L 32.57 99.86 C 34.31 98.24 35.93 96.49 37.41 94.63 L 24.98 84.73 C 24 85.96 22.92 87.13 21.76 88.21"/><path d="M 27.66 80.8 L 41.43 88.75 C 42.61 86.7 43.65 84.55 44.52 82.33 L 29.73 76.52 C 29.14 78 28.45 79.43 27.66 80.8"/><path d="M 14.19 19.32 C 11.94 18.63 9.62 18.1 7.24 17.74 L 4.87 33.46 C 6.45 33.7 8 34.05 9.5 34.52 Z M 14.19 19.32"/><path d="M 18.04 38.64 L 26.98 25.5 C 25.03 24.16 22.97 22.96 20.82 21.93 L 13.92 36.25 C 15.36 36.95 16.73 37.75 18.04 38.64"/><path d="M 24.98 45.09 L 37.4 35.17 C 35.91 33.31 34.29 31.56 32.55 29.95 L 21.75 41.6 C 22.91 42.68 23.99 43.84 24.98 45.09"/><path d="M 30.91 64.91 C 30.91 64.13 30.88 63.36 30.82 62.59 L 15.42 63.75 C 15.45 64.14 15.47 64.52 15.47 64.91 C 15.47 65.3 15.45 65.68 15.42 66.06 L 30.82 67.21 C 30.88 66.45 30.91 65.68 30.91 64.91"/><path d="M 29.72 53.29 L 44.52 47.47 C 43.64 45.25 42.61 43.1 41.42 41.05 L 27.66 49.01 C 28.45 50.37 29.14 51.8 29.72 53.29"/><path d="M 31.82 62.53 L 47.67 61.34 C 47.49 58.93 47.14 56.58 46.62 54.29 L 31.12 57.83 C 31.47 59.36 31.7 60.93 31.82 62.53"/><path d="M 28.78 53.62 L 14.4 59.27 C 14.68 59.98 14.91 60.71 15.08 61.47 L 30.14 58.03 C 29.79 56.51 29.34 55.04 28.78 53.62"/><path d="M 24.17 45.65 L 12.1 55.28 C 12.58 55.88 13.01 56.52 13.4 57.19 L 26.77 49.46 C 26 48.12 25.13 46.85 24.17 45.65"/><path d="M 9.14 35.38 L 4.59 50.15 C 5.32 50.38 6.04 50.66 6.73 50.99 L 13.43 37.07 C 12.05 36.41 10.62 35.84 9.14 35.38"/><path d="M 17.43 39.39 L 8.73 52.15 C 9.37 52.59 9.96 53.07 10.53 53.59 L 21.03 42.27 C 19.9 41.22 18.7 40.25 17.43 39.39"/><path d="M 2.34 80.18 C 1.59 80.3 0.82 80.36 0.04 80.36 L 0.05 95.8 C 1.61 95.8 3.15 95.68 4.65 95.46 Z M 2.34 80.18"/><path d="M 38.09 95.25 L 50.77 105.36 C 52.78 102.84 54.61 100.16 56.24 97.35 L 42.19 89.24 C 40.97 91.35 39.6 93.36 38.09 95.25"/><path d="M 47.48 75.73 C 46.94 78.12 46.22 80.45 45.34 82.69 L 60.45 88.61 C 61.62 85.62 62.58 82.52 63.3 79.34 Z M 47.48 75.73"/><path d="M 14.4 111.43 L 19.19 126.94 C 22.3 125.98 25.32 124.79 28.21 123.39 L 21.17 108.77 C 19 109.82 16.74 110.71 14.4 111.43"/><path d="M 27.46 105.12 L 36.61 118.53 C 39.28 116.7 41.81 114.67 44.18 112.47 L 33.14 100.58 C 31.37 102.23 29.47 103.75 27.46 105.12"/><path d="M 0.06 113.59 L 0.07 129.82 C 3.35 129.82 6.58 129.57 9.73 129.1 L 7.31 113.05 C 4.95 113.41 2.52 113.59 0.06 113.59"/><path d="M 7.29 16.77 L 9.7 0.72 C 6.55 0.25 3.32 0 0.03 0 L 0 0 L 0.01 16.23 L 0.03 16.23 C 2.5 16.23 4.92 16.41 7.29 16.77"/><path d="M 2.34 49.64 L 4.64 34.36 C 3.13 34.14 1.59 34.02 0.03 34.02 L 0.02 34.02 L 0.03 49.46 L 0.03 49.46 C 0.81 49.46 1.58 49.52 2.34 49.64"/><path d="M 21.15 21.04 L 28.19 6.42 C 25.29 5.02 22.28 3.83 19.16 2.87 L 14.38 18.38 C 16.71 19.1 18.98 19.99 21.15 21.04"/><path d="M 33.12 29.23 L 44.16 17.33 C 41.79 15.13 39.25 13.11 36.58 11.28 L 27.44 24.68 C 29.45 26.06 31.35 27.57 33.12 29.23"/><path d="M 42.18 40.56 L 56.22 32.45 C 54.6 29.63 52.77 26.96 50.75 24.44 L 38.07 34.55 C 39.58 36.45 40.96 38.45 42.18 40.56"/><path d="M 65.37 0 L 65.37 129.82 C 101.21 129.82 130.28 100.76 130.28 64.91 C 130.28 29.06 101.21 0 65.37 0"/></g></svg></a>
-    <nav class="mainnav" aria-label="Main"><a href="#home" data-nav="home">Home</a><a href="#assessment" data-nav="assessment">The assessment</a><a href="#families" data-nav="families">Families & carers</a><a href="#gps" data-nav="gps">For GPs</a><a href="#clinicians" data-nav="clinicians">Our clinicians</a></nav>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mainnav">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <nav class="mainnav" id="mainnav" aria-label="Main">
+      <button class="nav-close" aria-label="Close menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <a href="#home" data-nav="home">Home</a>
+      <a href="#assessment" data-nav="assessment">The assessment</a>
+      <a href="#families" data-nav="families">Families &amp; carers</a>
+      <a href="#gps" data-nav="gps">For GPs</a>
+      <a href="#clinicians" data-nav="clinicians">Our clinicians</a>
+    </nav>
   </div>
 </header>
 
@@ -901,9 +1024,39 @@
 
   var form = document.getElementById('enquiry-form');
   var sent = document.getElementById('sent');
+
   if (form && sent) {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+
+      var who      = form.querySelector('[name="who"]').value;
+      var name     = form.querySelector('[name="name"]').value;
+      var postcode = form.querySelector('[name="postcode"]').value;
+      var phone    = form.querySelector('[name="phone"]').value;
+      var email    = form.querySelector('[name="email"]').value;
+      var when     = form.querySelector('[name="when"]').value;
+      var story    = form.querySelector('[name="story"]').value;
+      var updates  = form.querySelector('[name="updates"]').checked ? 'Yes' : 'No';
+
+      var body =
+        'New enquiry from Dementia Diagnostics website\n' +
+        '================================================\n\n' +
+        'Getting in touch : ' + who + '\n' +
+        'Name             : ' + name + '\n' +
+        'Postcode         : ' + postcode + '\n' +
+        'Phone            : ' + phone + '\n' +
+        'Email            : ' + (email || 'Not provided') + '\n' +
+        'Best time        : ' + when + '\n' +
+        'Updates opt-in   : ' + updates + '\n\n' +
+        'Message:\n' + (story || 'Not provided');
+
+      var mailto =
+        'mailto:rohit.bansal@dementiadiagnostics.com.au' +
+        '?subject=' + encodeURIComponent('New Enquiry – ' + name + ' (' + postcode + ')') +
+        '&body='    + encodeURIComponent(body);
+
+      window.location.href = mailto;
+
       form.hidden = true;
       sent.hidden = false;
       sent.setAttribute('tabindex', '-1');
@@ -915,6 +1068,38 @@
 
 window.DD_TITLES = {'home': 'Dementia Diagnostics', 'assessment': 'The assessment', 'families': 'Families and carers', 'gps': 'For GPs', 'clinicians': 'Our clinicians', 'privacy': 'Privacy'};
 ddInit();
+
+// Hamburger menu
+(function(){
+  var toggle = document.querySelector('.nav-toggle');
+  var close  = document.querySelector('.nav-close');
+  var nav    = document.getElementById('mainnav');
+  if (!toggle || !nav) return;
+
+  function openMenu() {
+    nav.classList.add('is-open');
+    toggle.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    nav.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  toggle.addEventListener('click', openMenu);
+  if (close) close.addEventListener('click', closeMenu);
+
+  // Close on nav link click
+  nav.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', closeMenu);
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') closeMenu();
+  });
+})();
 </script>
 </body>
 </html>
